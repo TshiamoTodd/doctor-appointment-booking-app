@@ -9,8 +9,8 @@ function DoctorList({doctorList}) {
     return (
         <div className='mb-10 px-8'>
             <h2 className='font-bold text-xl'>Popular Doctors</h2>
-            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-4'>
-                {doctorList && doctorList.map((doctor, index) => (
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-4 gap2'>
+                {doctorList.length > 0 ? doctorList.map((doctor, index) => (
                     <div key={index}
                         className='border-[1px] rounded-lg p-3 mb-3 mx-3 cursor-pointer hover:border-primary hover:shadow-sm transition-all ease-in-out'
                     >
@@ -34,7 +34,17 @@ function DoctorList({doctorList}) {
                             </h2>
                         </div>
                     </div>
-                ))}
+                ))
+            
+            :
+            
+            // Skeleton effect
+            [1,2,3,4,5,6].map((item, index) => (
+                <div className='h-[220px] bg-slate-200 w-[95%] rounded-lg ml-3 mr-3 p-3 mb-3 animate-pulse'>
+    
+                </div>
+            ))
+        }
             </div>
         </div>
     );
