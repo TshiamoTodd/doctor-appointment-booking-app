@@ -6,6 +6,7 @@ import { Search } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import GlobalApi from '../_utils/GlobalApi'
 import Image from 'next/image';
+import Link from 'next/link';
 
 function CategorySearch() {
     const [categoryList, setCategoryList] = useState([]);
@@ -41,7 +42,9 @@ function CategorySearch() {
             {/* Display list of category */}
             <div className='grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 mt-5'>
                 {categoryList.length > 0 ? categoryList.map((category, index) => index<6 && (
-                    <div key={index}
+                    <Link 
+                        href={'/search/' + category.attributes.Name}
+                        key={index}
                         className='flex flex-col text-center gap-2 items-center p-5 bg-blue-50 m-2 rounded-lg hover:scale-110 transition-all ease-in-out cursor-pointer'
                     >
                         <Image 
@@ -51,7 +54,7 @@ function CategorySearch() {
                             height={40} 
                         />
                         <label className='text-blue-600 text-sm'>{category.attributes?.Name}</label>
-                    </div>
+                    </Link>
                 ))
             :
             // Skeleton effect
