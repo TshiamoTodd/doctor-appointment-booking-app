@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import GlobalApi from '../_utils/GlobalApi'
 import Image from 'next/image';
+import Link from 'next/link';
 
 function DoctorList({doctorList, heading='Popular Doctors'}) {
 
@@ -28,10 +29,11 @@ function DoctorList({doctorList, heading='Popular Doctors'}) {
                             <h2 className='font-bold px-1'>{doctor.attributes?.Name}</h2>
                             <h2 className='px-1 text-primary text-sm'>{doctor.attributes?.Year_of_Experience}</h2>
                             <h2 className='px-1 text-sm text-gray-500'>{doctor.attributes?.Address}</h2>
-
-                            <h2 className='p-2 px-3 border-[1px] border-primary text-primary rounded-full w-full text-center text-[11px] mt-2 cursor-pointer hover:bg-primary hover:text-white transition-all ease-in-out'>
-                                Book Now
-                            </h2>
+                            <Link href={`/details/${doctor?.id}`} className="w-full">
+                                <h2 className='p-2 px-3 border-[1px] border-primary text-primary rounded-full w-full text-center text-[11px] mt-2 cursor-pointer hover:bg-primary hover:text-white transition-all ease-in-out'>
+                                    Book Now
+                                </h2>
+                            </Link>
                         </div>
                     </div>
                 ))
