@@ -13,7 +13,10 @@ const getCategory = async () => axiosClient.get('/categories?populate=*');
 
 const getDoctorList = async () => axiosClient.get('/doctors?populate=*');
 
+const getDoctorListByCategory = async (category) => axiosClient.get(`/doctors?filters[categories][Name][$in]=${category}&populate=*`);
+
 export default { 
     getCategory,
-    getDoctorList
+    getDoctorList,
+    getDoctorListByCategory
 }

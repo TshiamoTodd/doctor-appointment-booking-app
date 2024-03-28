@@ -4,12 +4,12 @@ import React, { useEffect, useState } from 'react'
 import GlobalApi from '../_utils/GlobalApi'
 import Image from 'next/image';
 
-function DoctorList({doctorList}) {
+function DoctorList({doctorList, heading='Popular Doctors'}) {
 
     return (
         <div className='mb-10 px-8'>
-            <h2 className='font-bold text-xl'>Popular Doctors</h2>
-            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-4 gap2'>
+            <h2 className='font-bold text-xl'>{heading}</h2>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-4 gap-2'>
                 {doctorList.length > 0 ? doctorList.map((doctor, index) => (
                     <div key={index}
                         className='border-[1px] rounded-lg p-3 mb-3 mx-3 cursor-pointer hover:border-primary hover:shadow-sm transition-all ease-in-out'
