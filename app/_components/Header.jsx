@@ -1,4 +1,8 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { LoginLink, LogoutLink, useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 import Image from 'next/image'
 import Link from 'next/link';
 import React from 'react'
@@ -21,6 +25,8 @@ function Header() {
             path: '/contact'
         }
     ];
+
+    const {user} = useKindeBrowserClient(); 
 
     return (
         <div className='flex items-center justify-between p-4 shadow-sm'>
@@ -45,7 +51,42 @@ function Header() {
                     ))}
                 </ul>
             </div>
-            <Button>Get Started</Button>
+
+            {user ? 
+                <Popover>
+                    <PopoverTrigger>
+                        <Image 
+                            src={user?.picture} 
+                            alt="profile"
+                            width={50}
+                            height={50}
+                            className='rounded-full'
+                        />
+                    </PopoverTrigger>
+                    <PopoverContent className="w-44">
+                        <ul className='flex flex-col gap-2 cursor-pointer'>
+                            <li className='hover:bg-slate-200 p-2 rounded-md'>
+                                Profile
+                            </li>
+                            <li className='hover:bg-slate-200 p-2 rounded-md'>
+                                My Booking
+                            </li>
+                            <li className='hover:bg-slate-200 p-2 rounded-md'>
+                                <LogoutLink>
+                                    Logout
+                                </LogoutLink>
+                            </li>
+                        </ul>
+                    </PopoverContent>
+                </Popover>
+                :
+                <LoginLink>
+                    <Button>Get Started</Button>
+                </LoginLink>
+            }
+            
+            
+            
         </div>
     );
 }
