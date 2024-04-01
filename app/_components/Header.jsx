@@ -43,6 +43,7 @@ function Header() {
                     {menu.map((item, index) => (
                         <Link href={item.path} key={index}>
                             <li 
+                                key={index}
                                 className='hover:text-primary cursor-pointer hover:scale-105 transition-all ease-in-out'
                             >
                                 {item.name}

@@ -23,7 +23,7 @@ function DoctorSuggestionList() {
             {doctorList && doctorList.map((doctor, index) => (
                 <Link 
                     key={index}
-                    href={'/details/' + doctor.id}
+                    href={`/details/${doctor.id}`} 
                     className='pb-3 border-b mb-2 flex mt-2 items-center rounded-lg hover:scale-105 transition-all ease-in-out cursor-pointer'
                 >
                     <Image

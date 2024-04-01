@@ -14,15 +14,22 @@ import {
   } from "@/components/ui/dialog";
 import { Button } from '@/components/ui/button';
 import { Calendar } from "@/components/ui/calendar";
-import { CalendarDays, Clock } from 'lucide-react';
+import { CalendarDays, Clock, Loader2 } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
+import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
+import GlobalApi from '@/app/_utils/GlobalApi';
+import { toast } from 'sonner';
 
   
 
-function BookAppointment() {
+function BookAppointment({doctor}) {
     const [date, setDate] = useState(new Date());
     const [timeSlot, setTimeSlot] = useState();
     const [selectedTimeSlot, setSelectedTimeSlot] = useState();
+    const [note, setNote] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+
+    const {user} = useKindeBrowserClient();
 
     useEffect(() => {
         getTime();
@@ -51,21 +58,45 @@ function BookAppointment() {
         setTimeSlot(timeList);
     }
 
+    const saveBooking = () => {
+        setIsLoading(true);
+        const data = {
+            data: {
+                UserName: user.given_name+" "+user.family_name,
+                Email: user.email,
+                Date: date,
+                Time: selectedTimeSlot,
+                doctor: doctor.id,
+                Note: note
+            }
+        }
+
+        GlobalApi.bookAppointment(data).then(res => {
+            console.log(res);
+
+            if(res) {
+                setIsLoading(false);
+                toast('Booking confirmation sent via email.');
+            }
+        });
+    }
+
     const isPassedDay = (date) => {
         return date <= new Date();
     };
 
     return (
         <Dialog>
-            <DialogTrigger>
+            <DialogTrigger asChild>
                 <Button className="mt-3 rounded-full">
                     Book appointment
                 </Button>
             </DialogTrigger>
             <DialogContent>  
                 <DialogHeader>
-                <DialogTitle>Book Appointment</DialogTitle>
-                <DialogDescription>
+                    <DialogTitle>
+                        Book Appointment
+                    </DialogTitle>
                     <div className='mt-5'>
                         <div className='grid grid-cols-1 md:grid-cols-2 mb-3'>
                             {/* Calendar */}
@@ -91,8 +122,9 @@ function BookAppointment() {
                                 <div className='grid grid-cols-3 gap-2 border rounded-lg p-5'>
                                     {timeSlot?.map((item, index) => (
                                         <h2 
+                                            key={index}
                                             onClick={() => setSelectedTimeSlot(item.time)}
-                                            className={`p-2 border text-center rounded-full hover:bg-primary hover:text-white cursor-pointer ${selectedTimeSlot === item.time &&'bg-primary text-white'}`}
+                                            className={`p-1 border text-center rounded-full hover:bg-primary hover:text-white cursor-pointer ${selectedTimeSlot === item.time &&'bg-primary text-white'}`}
                                         >
                                             {item.time}
                                         </h2>
@@ -100,9 +132,12 @@ function BookAppointment() {
                                 </div>
                             </div>
                         </div>
-                        <Textarea placeholder="Type your notes here." />
+                        <Textarea 
+                            value={note}
+                            onChange={(e) => setNote(e.target.value)}
+                            placeholder="Type your notes here." 
+                        />
                     </div>
-                </DialogDescription>
                 </DialogHeader>
                 <DialogFooter className="sm:justify-end">
                     <DialogClose asChild>
@@ -110,8 +145,8 @@ function BookAppointment() {
                             <Button className="text-red-500 border-red-500" type="button" variant="outline">
                                 Close
                             </Button>
-                            <Button type="button" disabled={!(date && selectedTimeSlot)}>
-                                Submit
+                            <Button type="button" disabled={!(date && selectedTimeSlot)} onClick={() => saveBooking()}>
+                                {isLoading ? <Loader2 className='w-4 h-4 animate-spin'/> : 'Submit'}
                             </Button>
                         </>
                     </DialogClose>

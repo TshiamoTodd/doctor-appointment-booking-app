@@ -17,13 +17,15 @@ function DoctorDetail({doctor}) {
             <div className='grid grid-cols-1 md:grid-cols-3 border-[1px] p-5 mt-5 rounded-lg'>
                 {/* Doctor image */}
                 <div>
-                    <Image 
-                        src={doctor.attributes?.image?.data.attributes?.url} 
-                        alt={'image'} 
-                        width={300} 
-                        height={300} 
-                        className='rounded-lg w-full h-[270px] object-cover'
-                    />
+                    {doctor.attributes?.image?.data.attributes?.url && (
+                        <Image
+                            src={doctor.attributes?.image?.data.attributes?.url}
+                            alt='doctor'
+                            width={500}
+                            height={200}
+                            className='h-[270px] w-full object-cover rounded-lg'
+                        />
+                    )}
                 </div>
                 {/* Doctor information */}
                 <div className='col-span-2 md:px-10 flex mt-5 flex-col gap-2 items-baseline'>
@@ -55,7 +57,7 @@ function DoctorDetail({doctor}) {
                             />
                         ))}
                     </div>
-                    <BookAppointment/>
+                    <BookAppointment doctor={doctor}/>
                 </div>
             </div>
             {/* About doctor */}
