@@ -66,12 +66,16 @@ function Header() {
                     </PopoverTrigger>
                     <PopoverContent className="w-44">
                         <ul className='flex flex-col gap-2 cursor-pointer'>
-                            <li className='hover:bg-slate-200 p-2 rounded-md'>
+                            <Link 
+                                href={'/'}
+                                className='hover:bg-slate-200 p-2 rounded-md'>
                                 Profile
-                            </li>
-                            <li className='hover:bg-slate-200 p-2 rounded-md'>
+                            </Link>
+                            <Link
+                                href={'/my-booking'}
+                                className='hover:bg-slate-200 p-2 rounded-md'>
                                 My Booking
-                            </li>
+                            </Link>
                             <li className='hover:bg-slate-200 p-2 rounded-md'>
                                 <LogoutLink>
                                     Logout

@@ -1,5 +1,3 @@
-import { data } from "autoprefixer";
-
 const { default: axios } = require("axios")
 
 const API_KEY = process.env.NEXT_PUBLIC_STRAPI_API_KEY
@@ -23,6 +21,8 @@ const bookAppointment = async (data) => axiosClient.post('/appointments', data);
 
 const sendEmail = async (data) => axios.post('/api/sendEmail', data);
 
+const getUserBookingList = async (email) => axiosClient.get(`/appointments?[filters][Email][$eq]=${email}&populate[doctor][populate][image][populate][0]=url&populate=*`);
+
 export default { 
     getCategory,
     getDoctorList,
@@ -30,4 +30,5 @@ export default {
     getDoctorById,
     bookAppointment,
     sendEmail,
+    getUserBookingList
 }
