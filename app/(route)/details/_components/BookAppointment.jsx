@@ -76,6 +76,9 @@ function BookAppointment({doctor}) {
 
             if(res) {
                 setIsLoading(false);
+                GlobalApi.sendEmail(data).then(res => {
+                    console.log(res);
+                });
                 toast('Booking confirmation sent via email.');
             }
         });
