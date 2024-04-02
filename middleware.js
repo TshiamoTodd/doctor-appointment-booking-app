@@ -6,7 +6,7 @@ export async function middleware(request) {
     const {isAuthenticated} = getKindeServerSession();
     if(!(await isAuthenticated())){
         // redirect('/api/auth/login')
-        return NextResponse.redirect(new URL('/api/auth/login?post_login_redirect_url=?protected', request.url))
+        return NextResponse.redirect(new URL('/api/auth/login?post_login_redirect_url=/', request.url))
     }
 
 }
