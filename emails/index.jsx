@@ -17,12 +17,15 @@ import {
     : "http://localhost:3000";
   
   export const ConfirmationEmail = ({
-    userFirstname='Test User',
+    userFirstname,
+    date,
+    time,
+    doctor,
   }) => (
     <Html>
       <Head />
       <Preview>
-        The sales intelligence platform that helps you uncover qualified leads.
+        ReadyCare+ always ready to care.
       </Preview>
       <Body style={main}>
         <Container style={container}>
@@ -35,18 +38,18 @@ import {
           />
           <Text style={paragraph}>Hi {userFirstname},</Text>
           <Text style={paragraph}>
-            Welcome to Koala, the sales intelligence platform that helps you
-            uncover qualified leads and close deals faster.
+            We are delighted to let you know that you appointment has been confirmed.
+            The details are as follows: {date} | {time} | at {doctor}'s office.
           </Text>
           <Section style={btnContainer}>
-            <Button style={button} href="https://getkoala.com">
-              Get started
+            <Button style={button} href="http://localhost:3000/my-booking">
+              View Appointment
             </Button>
           </Section>
           <Text style={paragraph}>
             Best,
             <br />
-            The Koala team
+            The ReadyCare+ team
           </Text>
           <Hr style={hr} />
           <Text style={footer}>

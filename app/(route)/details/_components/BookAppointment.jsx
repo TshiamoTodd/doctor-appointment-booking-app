@@ -26,7 +26,7 @@ function BookAppointment({doctor}) {
     const [date, setDate] = useState(new Date());
     const [timeSlot, setTimeSlot] = useState();
     const [selectedTimeSlot, setSelectedTimeSlot] = useState();
-    const [note, setNote] = useState('');
+    const [note, setNote] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
     const {user} = useKindeBrowserClient();
@@ -60,6 +60,7 @@ function BookAppointment({doctor}) {
 
     const saveBooking = () => {
         setIsLoading(true);
+        console.log("This is the note: ",note)
         const data = {
             data: {
                 UserName: user.given_name+" "+user.family_name,
@@ -136,8 +137,7 @@ function BookAppointment({doctor}) {
                             </div>
                         </div>
                         <Textarea 
-                            value={note}
-                            onChange={(e) => setNote(e.target.value)}
+                            onChange={(e)=>setNote(e.target.value)}
                             placeholder="Type your notes here." 
                         />
                     </div>

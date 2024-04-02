@@ -23,6 +23,8 @@ const sendEmail = async (data) => axios.post('/api/sendEmail', data);
 
 const getUserBookingList = async (email) => axiosClient.get(`/appointments?[filters][Email][$eq]=${email}&populate[doctor][populate][image][populate][0]=url&populate=*`);
 
+const deleteBooking = async (id) => axiosClient.delete(`/appointments/${id}`);
+
 export default { 
     getCategory,
     getDoctorList,
@@ -30,5 +32,6 @@ export default {
     getDoctorById,
     bookAppointment,
     sendEmail,
-    getUserBookingList
+    getUserBookingList,
+    deleteBooking,
 }
